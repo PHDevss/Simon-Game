@@ -12,6 +12,8 @@ $(document).keypress(function(e){
 $(".btn").click((e)=> {
     userChosenColour = e.target.id
     userClickedPattern.push(userChosenColour)
+    playSound(userChosenColour)
+    animatePress(userChosenColour)
 }
 )
 
@@ -27,8 +29,16 @@ function startGame(){
     gamePattern.push(randomChosenColour)
     $(`#${randomChosenColour}`).fadeOut().fadeIn(100);
 
+    playSound(randomChosenColour) 
+}
 
-    let audioButton = new Audio (`./sounds/${randomChosenColour}.mp3`);
+function playSound(name) {
+    let audioButton = new Audio (`./sounds/${name}.mp3`);
 
     audioButton.play();
+}
+
+function animatePress(currentColour) {
+    $(`#${currentColour}`).addClass("pressed")
+    setTimeout(() => $(`#${currentColour}`).removeClass("pressed"),100)
 }
